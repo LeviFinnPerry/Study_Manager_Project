@@ -1,4 +1,4 @@
-package com.example.studymanager.ui.home;
+package com.example.studymanager.ui.calendar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,24 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.studymanager.databinding.FragmentHomeBinding;
+import com.example.studymanager.databinding.FragmentCalendarBinding;
 
-public class HomeFragment extends Fragment {
+public class CalendarFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentCalendarBinding binding;
 
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState
     ) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        CalendarViewModel calendarViewModel =
+                new ViewModelProvider(this).get(CalendarViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textCalendar;
+        calendarViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

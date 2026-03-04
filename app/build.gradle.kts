@@ -57,4 +57,9 @@ dependencies {
     annotationProcessor("androidx.lifecycle:lifecycle-compiler:2.10.0")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+
+
+    // JSoup dependency
+    implementation("org.jsoup:jsoup:1.15.4")
+    
 }

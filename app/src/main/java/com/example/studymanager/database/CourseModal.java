@@ -1,6 +1,7 @@
 package com.example.studymanager.database;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 // Setting the paper table as a many to one relationship with semester
@@ -10,7 +11,8 @@ import androidx.room.PrimaryKey;
                 parentColumns = "semesterCode",   // PK of parent
                 childColumns = "semester", // FK name
                 onDelete = ForeignKey.CASCADE   // Dependency on paper
-        )
+        ),
+        indices = {@Index("semester")}
 )
 public class CourseModal {
     // Key information from top of paper outline

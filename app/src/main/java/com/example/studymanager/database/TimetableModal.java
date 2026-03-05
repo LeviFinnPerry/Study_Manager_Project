@@ -2,6 +2,7 @@ package com.example.studymanager.database;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "timetable_table",
@@ -10,7 +11,8 @@ import androidx.room.PrimaryKey;
                 parentColumns = "paperId",      // PK of parent
                 childColumns = "paperId_fk",    // FK name
                 onDelete = ForeignKey.CASCADE   // Dependency on paper
-        )
+        ),
+        indices = {@Index("paperId_fk")}
 )
 public class TimetableModal {
     @PrimaryKey(autoGenerate = true)

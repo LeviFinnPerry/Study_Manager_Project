@@ -13,13 +13,22 @@ import com.example.studymanager.database.CourseModal;
 import com.example.studymanager.database.SemesterModal;
 import com.example.studymanager.database.TimetableModal;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 // Database entries for the app
-@Database(entities = {CourseModal.class, SemesterModal.class, TimetableModal.class, AssessmentsModal.class}, version = 1)
+@Database(entities = {CourseModal.class, SemesterModal.class, TimetableModal.class, AssessmentsModal.class},
+          version = 1,
+          exportSchema = false)
 public abstract class CourseDatabase extends RoomDatabase {
     // Instance of database
     private static CourseDatabase instance;
     // Abstract database object
     public abstract Dao Dao();
+
+    // Create a fixed thread pool to handle background database operations
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     // Getting instance of database
     public static synchronized CourseDatabase getInstance(Context context) {
@@ -27,7 +36,6 @@ public abstract class CourseDatabase extends RoomDatabase {
         if (instance == null) {
         instance = Room.databaseBuilder(context.getApplicationContext(),
                 CourseDatabase.class, "course_database")
-                .fallbackToDestructiveMigration()
                 .addCallback(roomCallback)
                 .build();
         }
@@ -40,20 +48,12 @@ public abstract class CourseDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             // Populate the database
-            new PopulateDbAsyncTask(instance).execute();
+            databaseWriteExecutor.execute(() -> {
+                Dao Dao = instance.Dao();
+                // Populate the database
+
+            });
         }
     };
 
-    // Create the task to populate the database in the background
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private PopulateDbAsyncTask(CourseDatabase db) {
-            Dao Dao = db.Dao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }
 }

@@ -2,6 +2,7 @@ package com.example.studymanager.database;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 // Setting the assessment table as a many to one relationship to the course
 @Entity(tableName = "assessment_table",
@@ -10,7 +11,8 @@ import androidx.room.PrimaryKey;
                 parentColumns = "paperId",      // PK of parent
                 childColumns = "paperId_fk",    // FK name
                 onDelete = ForeignKey.CASCADE   // Dependency on paper
-        )
+        ),
+        indices = {@Index("paperId_fk")}
 )
 public class AssessmentsModal {
     @PrimaryKey(autoGenerate = true)

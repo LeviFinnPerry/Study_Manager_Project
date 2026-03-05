@@ -1,7 +1,8 @@
 package com.example.studymanager;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -12,6 +13,8 @@ import com.example.studymanager.database.AssessmentsModal;
 import com.example.studymanager.database.CourseModal;
 import com.example.studymanager.database.SemesterModal;
 import com.example.studymanager.database.TimetableModal;
+
+import org.jsoup.nodes.Document;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,7 +54,19 @@ public abstract class CourseDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 Dao Dao = instance.Dao();
                 // Populate the database
+                PaperExtractor.getDocumentFromUrl("https://paperoutlines.waikato.ac.nz/outline/COMPX576-26A%20(HAM)", new PaperExtractor.DocumentCallback() {
+                    @Override
+                    public void onDocumentRetrieved(Document document) {
+                        document.title();
 
+                        // Parse the document and populate the database
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e("PaperExtractor", "Error retrieving document", e);
+                    }
+                });
             });
         }
     };

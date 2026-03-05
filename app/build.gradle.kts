@@ -59,6 +59,6 @@ dependencies {
 
 
     // JSoup dependency
-    implementation("org.jsoup:jsoup:1.22.1")
+    implementation("org.jsoup:jsoup:1.18.1")
     
 }

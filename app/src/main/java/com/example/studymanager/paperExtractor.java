@@ -1,5 +1,7 @@
 package com.example.studymanager;
 
+import com.example.studymanager.database.CourseModal;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,13 +35,13 @@ public class paperExtractor {
                 String pointsElement = getSpanElementTextByLabel(doc, "Points");
 
                 // For the start date where col-md-2 is "Start Week" get col-md-10
-                String startDateElement = getSpanElementTextByLabel(doc, "Start Week");
+                String startWeekElement = getSpanElementTextByLabel(doc, "Start Week");
 
                 // For the end date where col-md-2 is "End Week" get col-md-10
-                String endDateElement = getSpanElementTextByLabel(doc, "End Week");
+                String endWeekElement = getSpanElementTextByLabel(doc, "End Week");
 
                 // Create a new CourseModal object with the extracted information
-                CourseModal courseModal = new CourseModal(paperTitleElement, paperOccurrenceCodeElement, semesterElement, pointsElement, startDateElement, endDateElement);
+                CourseModal courseModal = new CourseModal(paperCode, paperTitleElement, paperOccurrenceCodeElement, semesterElement, pointsElement, startWeekElement, endWeekElement);
 
                 // Insert into the database
                 db.Dao().insert(courseModal);

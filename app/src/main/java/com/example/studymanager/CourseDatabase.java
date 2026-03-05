@@ -8,8 +8,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.studymanager.database.AssessmentsModal;
+import com.example.studymanager.database.CourseModal;
+import com.example.studymanager.database.SemesterModal;
+import com.example.studymanager.database.TimetableModal;
+
 // Database entries for the app
-@Database(entities = {CourseModal.class}, version = 1)
+@Database(entities = {CourseModal.class, SemesterModal.class, TimetableModal.class, AssessmentsModal.class}, version = 1)
 public abstract class CourseDatabase extends RoomDatabase {
     // Instance of database
     private static CourseDatabase instance;
